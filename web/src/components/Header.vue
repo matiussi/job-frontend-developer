@@ -1,5 +1,5 @@
 <template>
-   <header :class="showSearchBar ? 'searchbar-open': ''">
+   <header :class="showSearchBar ? 'searchbar-open' : ''">
       <nav>
          <button class="toggle-menu" @click="showMenu = true">
             <unicon name="bars"></unicon>
@@ -7,7 +7,10 @@
          <router-link class="logo" to="/" v-if="isDesktop">
             <img src="../assets/logo.svg" />
          </router-link>
-         <ul v-if="showMenu || isDesktop" :class="isDesktop ? 'categories-desktop' : 'categories-mobile'">
+         <ul
+            v-if="showMenu || isDesktop"
+            :class="isDesktop ? 'categories-desktop' : 'categories-mobile'"
+         >
             <div class="categories-top" v-if="!isDesktop">
                <button class="close-menu" @click="showMenu = false">
                   <unicon name="multiply"></unicon>
@@ -35,7 +38,7 @@
                @click="
                   showSearchBar = true;
                   showMenu = false;
-                  setFocus()
+                  setFocus();
                "
             >
                <unicon name="search"></unicon>
@@ -59,36 +62,37 @@
       </nav>
    </header>
    <router-view />
-   <div 
-      v-if="showMenu || showSearchBar" 
-      class="gray-bg" 
-      :style="showMenu ? 'z-index: 2': ''"
-      @click="showMenu = false; showSearchBar = false"
-   >
-   </div>
+   <div
+      v-if="showMenu || showSearchBar"
+      class="gray-bg"
+      :style="showMenu ? 'z-index: 2' : ''"
+      @click="
+         showMenu = false;
+         showSearchBar = false;
+      "
+   ></div>
 </template>
 <script>
-
 export default {
-   name: 'Header',
-   data(){
-      return{
+   name: "Header",
+   data() {
+      return {
          showMenu: false,
          showSearchBar: false,
          inputFocus: null,
          isDesktop: false,
-         windowWidth: window.innerWidth
-      }
+         windowWidth: window.innerWidth,
+      };
    },
-   mounted(){
-      this.$nextTick(() =>{
-         window.addEventListener('resize', this.onResize);
-      })
+   mounted() {
+      this.$nextTick(() => {
+         window.addEventListener("resize", this.onResize);
+      });
    },
    beforeUnmount() {
-      window.removeEventListener('resize', this.onResize);
+      window.removeEventListener("resize", this.onResize);
    },
-   methods: {  
+   methods: {
       onResize() {
          this.windowWidth = window.innerWidth;
          this.isDesktop = this.windowWidth > 991 ? true : false;
@@ -97,7 +101,7 @@ export default {
       setFocus: function () {
          this.$nextTick(() => this.$refs.inputFocus.focus());
       },
-    }
+   },
 };
 </script>
 
@@ -110,7 +114,7 @@ header {
    display: flex;
    align-items: center;
    justify-content: center;
-   
+
    nav {
       width: 100%;
       max-width: 1300px;
@@ -119,7 +123,7 @@ header {
       align-items: center;
       justify-content: space-between;
 
-      .logo{
+      .logo {
          padding: 0px 15px;
       }
       button {
@@ -127,7 +131,7 @@ header {
          margin: 5px;
       }
 
-      .categories-mobile{
+      .categories-mobile {
          height: 100vh;
          width: 80%;
          position: absolute;
@@ -139,7 +143,7 @@ header {
          background: white;
          border-right: 2px solid #c6c6c6;
 
-         .categories-top{
+         .categories-top {
             display: flex;
             justify-content: flex-end;
          }
@@ -154,7 +158,7 @@ header {
          }
       }
 
-      .button-wrapper{
+      .button-wrapper {
          display: flex;
          align-items: center;
       }
@@ -184,11 +188,11 @@ header {
       }
    }
 }
-.searchbar-open{
+.searchbar-open {
    position: absolute;
    z-index: 3;
 }
-.gray-bg{
+.gray-bg {
    position: fixed;
    top: 0;
    left: 0;
@@ -202,7 +206,7 @@ header {
    .toggle-menu {
       display: none;
    }
-   .categories-desktop{
+   .categories-desktop {
       font-size: 18px;
       width: 80%;
 
@@ -210,16 +214,16 @@ header {
       justify-content: space-around;
       align-items: center;
 
-      .category{
+      .category {
          height: 80px;
          display: flex;
          align-items: center;
-         a{
+         a {
             padding: 20px 10px;
          }
       }
    }
-   .searchbar{
+   .searchbar {
       border-bottom: 1px solid #c6c6c6;
       max-width: 1300px;
    }
