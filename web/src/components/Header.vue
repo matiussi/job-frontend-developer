@@ -189,7 +189,7 @@ header {
    }
 }
 .searchbar-open {
-   position: absolute;
+   position: relative;
    z-index: 3;
 }
 .gray-bg {
