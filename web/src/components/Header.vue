@@ -35,6 +35,7 @@
                @click="
                   showSearchBar = true;
                   showMenu = false;
+                  setFocus()
                "
             >
                <unicon name="search"></unicon>
@@ -67,45 +68,36 @@
    </div>
 </template>
 <script>
-import { nextTick, onUpdated, ref, onMounted, onUnmounted, computed} from "vue";
 
 export default {
-   setup() {
-      const showMenu = ref(false);
-      const showSearchBar = ref(false);
-
-      const inputFocus = ref(null);
-
-      let windowWidth = ref(window.innerWidth);
-      
-      const onWidthChange = () => {
-         return windowWidth.value = window.innerWidth
+   name: 'Header',
+   data(){
+      return{
+         showMenu: false,
+         showSearchBar: false,
+         inputFocus: null,
+         isDesktop: false,
+         windowWidth: window.innerWidth
       }
-      const isDesktop = computed(() => {
-         return windowWidth.value > 991 ? true : false
+   },
+   mounted(){
+      this.$nextTick(() =>{
+         window.addEventListener('resize', this.onResize);
       })
-      onMounted(() => {
-         return window.addEventListener('resize', onWidthChange)
-      })
-      onUnmounted(() => {
-         return window.removeEventListener('resize', onWidthChange)
-      })
-  
-      onUpdated(() => {
-         nextTick(() => {
-            if (inputFocus.value) {
-               inputFocus.value.focus();
-            }
-         });
-      });
-
-      return {
-         showMenu,
-         showSearchBar,
-         inputFocus,
-         isDesktop
-      };
-   }
+   },
+   beforeUnmount() {
+      window.removeEventListener('resize', this.onResize);
+   },
+   methods: {  
+      onResize() {
+         this.windowWidth = window.innerWidth;
+         this.isDesktop = this.windowWidth > 991 ? true : false;
+         console.log(this.windowWidth);
+      },
+      setFocus: function () {
+         this.$nextTick(() => this.$refs.inputFocus.focus());
+      },
+    }
 };
 </script>
 
