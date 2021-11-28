@@ -1,7 +1,8 @@
 <template>
    <div class="select-container">
-      <select @change="orderProducts(orderBy)" v-model="orderBy">
-         <option disabled selected value="">Order by</option>
+      <label for="select">Order by </label>
+      <select id="select" name="select" @change="orderProducts(orderBy)" v-model="orderBy">
+         <option disabled selected value="">Select</option>
          <option value="title,asc">Name, A-Z</option>
          <option value="title,desc">Name, Z-A</option>
          <option value="price,asc">Price, lowest</option>
@@ -11,6 +12,7 @@
       </select>
    </div>
    <div v-if="loading">Loading....</div>
+   <div v-if="error">Something went wrong...</div>
    <div class="list" v-if="products">
       <ul class="products-wrapper">
          <Product
@@ -38,6 +40,7 @@ export default {
       return {
          products: [],
          loading: false,
+         error: false,
          orderBy: "",
       };
    },
@@ -49,11 +52,16 @@ export default {
    },
    methods: {
       async fetchData() {
+         this.error = false;
          this.loading = true;
          if (this.page == "Home") {
             this.products = await getAllProducts();
          } else {
+            this.products = []
             this.products = await getProductsByCategory(this.$route.params.id);
+         }
+         if(!this.products){
+            this.error = true
          }
          this.loading = false;
       },
@@ -95,7 +103,11 @@ export default {
    justify-content: flex-end;
    align-items: center;
    padding: 15px;
+   margin: 30px 0px 50px 0px;
 
+   label{
+      margin-right: 10px;
+   }
    select{
       width: 160px;
       height: 40px;
@@ -103,7 +115,6 @@ export default {
       background-color: #fff;
       border: 1px solid #c6c6c6;
       font-size: 16px;
-
    }
 
 }
