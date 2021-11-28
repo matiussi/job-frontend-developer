@@ -1,6 +1,6 @@
 <template>
   <main>
-    <ProductsList />
+    <ProductsList page="Home" />
   </main>
 </template>
 
@@ -12,8 +12,5 @@ export default {
   components:{
     ProductsList
   }
-  
 }
-
-
 </script>
