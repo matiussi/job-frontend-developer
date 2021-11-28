@@ -7,7 +7,7 @@
       </router-link>
       <div class="info">
          <p class="title">{{ truncateString(title) }}</p>
-         <p>Ratings: {{rating.rate}}</p>
+         <p class="ratings">Ratings: <strong>{{rating.rate}}</strong></p>
          <p class="price">$ {{ price }}</p>
       </div>
       <!-- <button class="button">Adicionar ao carrinho</button> -->
@@ -48,18 +48,19 @@ export default {
    align-items: center;
    width: 45%;
    max-width: 300px;
-   margin: 8px 4px;
+   margin: 12px 4px;
    /* border: 1px solid #c6c6c6; */
 
    a {
       width: 100%;
+      height: 100%;
    }
    .image {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 300px;
+      height: 200px;
 
       img {
          display: inline-block;
@@ -78,14 +79,23 @@ export default {
          font-weight: 500;
          padding: 5px;
       }
+      .ratings{
+         margin: 0;
+      }
       .price{
-         margin: 0px 0px 10px 0px;
+         font-weight: 700;
+         margin: 10px 0px 10px 0px;
       }
    }
 }
 @media screen and (min-width: 992px) {
    .product{
       margin: 30px 15px;
+
+      .image{
+         height: 100%;
+         max-height: 300px;
+      }
    }
 }
 </style>
