@@ -7,7 +7,8 @@
       </router-link>
       <div class="info">
          <p class="title">{{ truncateString(title) }}</p>
-         <p class="price">R$ {{ price }}</p>
+         <p>Ratings: {{rating.rate}}</p>
+         <p class="price">$ {{ price }}</p>
       </div>
       <!-- <button class="button">Adicionar ao carrinho</button> -->
    </li>
