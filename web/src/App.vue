@@ -23,6 +23,7 @@ export default {
 * {
    box-sizing: border-box;
    /* text-transform: uppercase; */
+   color: #1F1D36;
 }
 body {
    margin: 0;
@@ -42,11 +43,12 @@ figure {
    all: unset;
 }
 a,
-button {
+button,
+select {
    cursor: pointer;
 
    &:focus {
-      outline: 2px solid #725bc2;
+      outline: 2px solid #2C272E;
    }
 }
 </style>
