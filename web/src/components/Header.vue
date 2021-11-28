@@ -46,7 +46,7 @@
             <button @click="showSearchBar = true">
                <unicon name="search"></unicon>
             </button>
-            <input ref="inputFocus" type="text" placeholder="Buscar produtos" />
+            <input ref="inputFocus" type="text" placeholder="Search for products" />
             <button class="close-searchbar" @click="showSearchBar = false">
                <unicon name="multiply"></unicon>
             </button>
@@ -79,10 +79,11 @@ export default {
          categories: []
       };
    },
-   mounted() {
-      this.$nextTick(() => {
+   created(){
+       this.$nextTick(() => {
          window.addEventListener("resize", this.onResize);
       });
+      this.onResize();
       this.fetchCategories();
    },
    beforeUnmount() {
@@ -106,7 +107,7 @@ export default {
 <style scoped lang="scss">
 header {
    width: 100%;
-   height: 80px;
+   height: 60px;
    border-bottom: 1px solid #c6c6c6;
    background-color: #fff;
 
@@ -173,7 +174,7 @@ header {
          position: absolute;
          background-color: #fff;
          width: 100%;
-         height: 80px;
+         height: 60px;
          display: flex;
          align-items: center;
          justify-content: center;
