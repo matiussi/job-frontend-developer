@@ -16,18 +16,10 @@
                   <unicon name="multiply"></unicon>
                </button>
             </div>
-            <li class="category">
-               <router-link to="/about">Category 1</router-link>
+            <li class="category" v-for="category in categories" :key="category.id" >
+               <router-link :to="`/category/${category}`">{{category}}</router-link>
             </li>
-            <li class="category">
-               <router-link to="/about">Category 2</router-link>
-            </li>
-            <li class="category">
-               <router-link to="/about">Category 3</router-link>
-            </li>
-            <li class="category">
-               <router-link to="/about">Category 4</router-link>
-            </li>
+            
          </ul>
          <router-link class="logo" to="/" v-if="!isDesktop">
             <img src="../assets/logo.svg" />
@@ -73,6 +65,8 @@
    ></div>
 </template>
 <script>
+import { getCategories } from "../api/fakestore";
+
 export default {
    name: "Header",
    data() {
@@ -82,12 +76,14 @@ export default {
          inputFocus: null,
          isDesktop: false,
          windowWidth: window.innerWidth,
+         categories: []
       };
    },
    mounted() {
       this.$nextTick(() => {
          window.addEventListener("resize", this.onResize);
       });
+      this.fetchCategories();
    },
    beforeUnmount() {
       window.removeEventListener("resize", this.onResize);
@@ -96,10 +92,12 @@ export default {
       onResize() {
          this.windowWidth = window.innerWidth;
          this.isDesktop = this.windowWidth > 991 ? true : false;
-         console.log(this.windowWidth);
       },
       setFocus: function () {
          this.$nextTick(() => this.$refs.inputFocus.focus());
+      },
+      fetchCategories: async function(){
+         this.categories = await getCategories();
       },
    },
 };
@@ -111,9 +109,11 @@ header {
    height: 80px;
    border-bottom: 1px solid #c6c6c6;
    background-color: #fff;
+
    display: flex;
    align-items: center;
    justify-content: center;
+   text-transform: uppercase;
 
    nav {
       width: 100%;
@@ -142,6 +142,7 @@ header {
          flex-direction: column;
          background: white;
          border-right: 2px solid #c6c6c6;
+         
 
          .categories-top {
             display: flex;
@@ -207,7 +208,7 @@ header {
       display: none;
    }
    .categories-desktop {
-      font-size: 18px;
+      font-size: 16px;
       width: 80%;
 
       display: flex;
