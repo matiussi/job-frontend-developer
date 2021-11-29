@@ -3,9 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import Unicon from 'vue-unicons'
-import { uniShoppingCart, uniBars, uniSearch, uniMultiply } from 'vue-unicons/dist/icons'
+import { uniShoppingCart, uniBars, uniSearch, uniMultiply, uniStar, uniStarSolid } from 'vue-unicons/dist/icons'
 
-Unicon.add([uniShoppingCart, uniBars, uniSearch, uniMultiply])
+Unicon.add([uniShoppingCart, uniBars, uniSearch, uniMultiply, uniStar, uniStarSolid])
 
 createApp(App)
    .use(store)
