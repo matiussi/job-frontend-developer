@@ -17,7 +17,7 @@
                </button>
             </div>
             <li class="category" v-for="(category, index) in categories" :key="index" >
-               <router-link :to="`/category/${category}`">{{category}}</router-link>
+               <router-link @click="showMenu = false" :to="`/category/${category}`">{{category}}</router-link>
             </li>
             
          </ul>
@@ -109,7 +109,6 @@ header {
    display: flex;
    align-items: center;
    justify-content: center;
-   text-transform: uppercase;
 
    nav {
       width: 100%;
