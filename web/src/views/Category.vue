@@ -21,5 +21,6 @@ export default {
    .category{
       padding-left: 15px;
       text-transform: uppercase;
+      margin: 0;
    }
 </style>
