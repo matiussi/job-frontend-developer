@@ -7,26 +7,27 @@
          <div class="info-container">
             <p class="category">{{ product.category }}</p>
             <h1 class="title">{{ product.title }}</h1>
-            <div class="raring-wrapper">
-               <span v-for="index in 5" :key="index">
-                  <unicon
-                     name="star"
-                     fill="black"
-                     icon-style="solid"
-                     size="10"
-                     v-if="Math.trunc(product.rating.rate) >= index"
-                  >
-                  </unicon>
-                  <unicon v-else name="star" fill="black"> </unicon>
-               </span>
-               <span class="rating">{{ product.rating.rate }}</span>
-            </div>
+            <Ratings 
+               :rate="product.rating.rate"
+               :size="28"
+            />
             <p class="price">$ {{ product.price }}</p>
-
+         <div class="wrapper">
+         <div class="cart-options">
+            <button class="operation">-</button>
+            <input class="quantity" type="number" />
+            <button class="operation">+</button>
+         </div>
+         <button class="add-to-cart">
+            ADD TO CART
+         </button>
+         </div>
+         </div>
+         <div class="description-container">
             <div class="description">
                <p>Description</p>
-               {{ product.description }}
             </div>
+            <p>{{ product.description }}</p>
          </div>
       </div>
       <div v-if="loading">Loading....</div>
@@ -36,10 +37,13 @@
 
 <script>
 import { getProduct } from "../api/fakestore";
+import Ratings from '../components/Ratings.vue';
 
 export default {
    name: "Product",
-
+   components:{
+      Ratings
+   },
    data() {
       return {
          product: null,
@@ -59,29 +63,108 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-
-.product-container{
+.product-container {
    padding: 30px;
    width: 100%;
-   /* background-color: tan; */
 
-   .image{
+   .image {
       width: 100%;
       height: 300px;
-      /* background: turquoise; */
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
 
-      img{
+      img {
          display: inline-block;
          max-width: 100%;
-         /* height: auto; */
          max-height: 300px;
          align-self: center;
       }
    }
+   .info-container {
+      .rating-wrapper {
+         display: flex;
+         align-items: center;
+         padding: 5px;
 
+         .stars {
+            margin-right: 5px;
+         }
+         &::v-deep .rating {
+            font-size: 20px;
+            margin-left: 10px;
+            margin-top: -5px;
+         }
+      }
+      .price{
+         font-size: 24px;
+      }
+   }
+   .cart-options{
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      height: 50px;
+
+      .operation{
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         height: 48px;
+         width: 48px;
+         border: 1px solid #c6c6c6;
+         font-size: 36px;
+         
+      }
+      .quantity{
+         height: 50px;
+         width: 50px;
+         text-align: center;
+         font-size: 20px;
+      }
+   }
+   .add-to-cart{
+      background-color: #1F1D36;
+      color: #fff;
+      font-weight: 500;
+      font-size: 20px;
+      height: 50px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px 0px;
+   }
+   .description-container{
+      margin-top: 60px;
+      font-size: 18px;
+      width: 100%;
+
+      .description{
+         border-bottom: 1px solid #c6c6c6;
+         font-weight: 500;
+         
+      }
+   }
+}
+
+@media screen and (min-width: 992px) {
+   .product-container{
+      display: flex;
+      flex-wrap: wrap;
+      
+      .image{
+         width: 50%;
+      }
+      .info-container{
+         width: 50%;
+         flex-grow: 1;
+
+         .wrapper{
+            margin-top: 50px;
+         }
+      }
+   }
 }
 </style>
