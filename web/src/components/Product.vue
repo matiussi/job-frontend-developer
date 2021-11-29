@@ -6,15 +6,22 @@
          </div>
       </router-link>
       <div class="info">
-         <p class="title">{{ truncateString(title) }}</p>
-         <p class="ratings">Ratings: <strong>{{rating.rate}}</strong></p>
+         <div class="title">
+            <p >{{ truncateTitle }}</p>
+         </div>
+         <Ratings 
+            :rate="rating.rate"
+            :size="18"
+         />
          <p class="price">$ {{ price }}</p>
       </div>
-      <!-- <button class="button">Adicionar ao carrinho</button> -->
    </li>
 </template>
 
 <script>
+import Ratings from '../components/Ratings.vue';
+import truncateString from '../utils/truncateString';
+
 export default {
    name: "Product",
    props: {
@@ -29,13 +36,12 @@ export default {
          count: Number,
       },
    },
-   methods: {
-      truncateString(str) {
-         if (str.length > 40) {
-            return str.slice(0, 30) + "...";
-         } else {
-            return str;
-         }
+   components:{
+      Ratings
+   },
+   computed: {
+      truncateTitle() {
+         return truncateString(this.title);
       },
    },
 };
@@ -77,22 +83,28 @@ export default {
 
       .title {
          font-weight: 500;
-         padding: 5px;
+         padding: 5px;   
       }
-      .ratings{
-         margin: 0;
+      .rating-wrapper {
+         display: flex;
+         margin: 5px;
+
+         &::v-deep .rating {
+            font-size: 14px;
+            margin-left: 5px;
+         }
       }
-      .price{
+      .price {
          font-weight: 700;
          margin: 10px 0px 10px 0px;
       }
    }
 }
 @media screen and (min-width: 992px) {
-   .product{
+   .product {
       margin: 30px 15px;
 
-      .image{
+      .image {
          height: 100%;
          max-height: 300px;
       }
