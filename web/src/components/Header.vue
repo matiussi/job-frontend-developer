@@ -16,7 +16,7 @@
                   <unicon name="multiply"></unicon>
                </button>
             </div>
-            <li class="category" v-for="category in categories" :key="category.id" >
+            <li class="category" v-for="(category, index) in categories" :key="index" >
                <router-link :to="`/category/${category}`">{{category}}</router-link>
             </li>
             
@@ -65,7 +65,6 @@
    ></div>
 </template>
 <script>
-import { getCategories } from "../api/fakestore";
 
 export default {
    name: "Header",
@@ -76,7 +75,7 @@ export default {
          inputFocus: null,
          isDesktop: false,
          windowWidth: window.innerWidth,
-         categories: []
+         categories: ['electronics', 'jewelery', 'men\'s clothing', 'women\'s clothing']
       };
    },
    created(){
@@ -84,7 +83,6 @@ export default {
          window.addEventListener("resize", this.onResize);
       });
       this.onResize();
-      this.fetchCategories();
    },
    beforeUnmount() {
       window.removeEventListener("resize", this.onResize);
@@ -96,9 +94,6 @@ export default {
       },
       setFocus: function () {
          this.$nextTick(() => this.$refs.inputFocus.focus());
-      },
-      fetchCategories: async function(){
-         this.categories = await getCategories();
       },
    },
 };
