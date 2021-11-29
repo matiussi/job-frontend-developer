@@ -9,6 +9,15 @@ export async function getAllProducts() {
       console.log(error);
    }
 }
+export async function getProduct(id) {
+   try {
+      let response = await fetch(`https://fakestoreapi.com/products/${id}`);
+      if (!response.ok) throw response.statusText;
+      return response.json();
+   } catch (error) {
+      console.log(error);
+   }
+}
 export async function getCategories() {
    try {
       let response = await fetch('https://fakestoreapi.com/products/categories');
@@ -27,3 +36,5 @@ export async function getProductsByCategory(category) {
       console.log(error);
    }
 }
+
+
