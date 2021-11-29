@@ -26,6 +26,7 @@
 
 <script>
 import { getAllProducts, getProductsByCategory } from "../api/fakestore";
+import orderItems from '../utils/orderItems';
 import Product from "./Product.vue";
 
 export default {
@@ -60,26 +61,10 @@ export default {
          }
          this.loading = false;
       },
-      orderProducts(value) {
-         const values = value.split(",");
-         const property = values[0];
-         const type = values[1];
-
-         this.products.sort((a, b) => {
-            if (property == "title" ) {
-               return a[property].localeCompare(b[property]);
-            }
-            if(property == "price"){
-               return a[property] - b[property];
-            }
-            if(property == "rating"){
-               return a[property].rate - b[property].rate;
-            }
-         });
-         if(type == 'desc'){
-            this.products.sort().reverse();
-         }
-      },
+      orderProducts(){
+         this.products = orderItems(this.products, this.orderBy);
+      }
+     
    },
 };
 </script>
@@ -109,7 +94,9 @@ export default {
       padding-left: 10px;
       background-color: #fff;
       border: 1px solid #c6c6c6;
+      
       font-size: 16px;
+      font-family: 'Raleway';
    }
 
 }
