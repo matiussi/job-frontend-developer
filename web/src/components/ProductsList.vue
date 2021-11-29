@@ -12,7 +12,7 @@
       </select>
    </div>
    <div v-if="loading">Loading....</div>
-   <div v-if="error">Something went wrong...</div>
+   <div v-if="!loading && !products">No products were found...</div>
    <div class="list" v-if="products">
       <ul class="products-wrapper">
          <Product
@@ -40,7 +40,6 @@ export default {
       return {
          products: [],
          loading: false,
-         error: false,
          orderBy: "",
       };
    },
@@ -52,16 +51,12 @@ export default {
    },
    methods: {
       async fetchData() {
-         this.error = false;
          this.loading = true;
          if (this.page == "Home") {
             this.products = await getAllProducts();
          } else {
             this.products = []
             this.products = await getProductsByCategory(this.$route.params.id);
-         }
-         if(!this.products){
-            this.error = true
          }
          this.loading = false;
       },
