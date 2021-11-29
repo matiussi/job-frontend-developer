@@ -19,10 +19,12 @@ export default {
    -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale;
    height: 100vh;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
 }
 * {
    box-sizing: border-box;
-   /* text-transform: uppercase; */
    color: #1F1D36;
 }
 body {
@@ -34,6 +36,9 @@ main {
    padding: 40px 0px;
    width: 100%;
    max-width: 1300px;
+}
+.category{
+   text-transform: uppercase;
 }
 a,
 button,
@@ -51,4 +56,21 @@ select {
       outline: 2px solid #2C272E;
    }
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+@media screen and (min-width: 992px){
+   main{
+      padding-top: 80px;
+   }
+}
+
 </style>
