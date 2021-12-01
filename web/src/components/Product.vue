@@ -13,7 +13,7 @@
             :rate="rating.rate"
             :size="18"
          />
-         <p class="price">$ {{ price }}</p>
+         <p class="price">{{currency}}</p>
       </div>
    </li>
 </template>
@@ -21,6 +21,7 @@
 <script>
 import Ratings from '../components/Ratings.vue';
 import truncateString from '../utils/truncateString';
+import currency from '../utils/currency';
 
 export default {
    name: "Product",
@@ -43,6 +44,10 @@ export default {
       truncateTitle() {
          return truncateString(this.title);
       },
+      currency(){
+         return currency(this.price);
+      }
+
    },
 };
 </script>
