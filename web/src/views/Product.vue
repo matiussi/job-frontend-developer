@@ -11,14 +11,29 @@
                :rate="product.rating.rate"
                :size="28"
             />
-            <p class="price">$ {{ product.price }}</p>
+            <p class="price">{{currency}}</p>
          <div class="wrapper">
          <div class="cart-options">
-            <button class="operation">-</button>
-            <input class="quantity" type="number" />
-            <button class="operation">+</button>
+            <button 
+               class="operation" 
+               @click="decreaseQuantity()"
+               :disabled="quantity <= 0 ? true : false"
+            >
+               -
+            </button>
+            <input 
+               class="quantity" 
+               type="number" 
+               :value="quantity"
+               :v-model="quantity"
+               min="0"
+               step="1"
+            />
+            <button class="operation" @click="increaseQuantity()">
+               +
+            </button>
          </div>
-         <button class="add-to-cart">
+         <button class="add-to-cart" @click="addToCart(product, quantity)">
             ADD TO CART
          </button>
          </div>
@@ -38,6 +53,7 @@
 <script>
 import { getProduct } from "../api/fakestore";
 import Ratings from '../components/Ratings.vue';
+import currency from '../utils/currency';
 
 export default {
    name: "Product",
@@ -48,10 +64,17 @@ export default {
       return {
          product: null,
          loading: false,
+         quantity: 1
       };
    },
+
    mounted() {
       this.fetchData();
+   },
+   computed:{
+      currency(){
+         return currency(this.product.price);
+      }
    },
    methods: {
       async fetchData() {
@@ -59,7 +82,21 @@ export default {
          this.product = await getProduct(this.$route.params.id);
          this.loading = false;
       },
+      increaseQuantity(){
+         this.quantity++;
+      },
+      decreaseQuantity(){
+         this.quantity--;
+      },
+      addToCart(product, quantity){
+         const payload = {
+            'product': product,
+            'quantity': quantity
+         }
+         this.$store.dispatch('addToCart', payload);
+      }, 
    },
+
 };
 </script>
 <style scoped lang="scss">
@@ -108,9 +145,6 @@ export default {
       height: 50px;
 
       .operation{
-         display: flex;
-         align-items: center;
-         justify-content: center;
          height: 48px;
          width: 48px;
          border: 1px solid #c6c6c6;
@@ -122,6 +156,7 @@ export default {
          width: 50px;
          text-align: center;
          font-size: 20px;
+         border: 1px solid #c6c6c6;
       }
    }
    .add-to-cart{
@@ -131,9 +166,6 @@ export default {
       font-size: 20px;
       height: 50px;
       width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       margin: 20px 0px;
    }
    .description-container{
