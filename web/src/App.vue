@@ -27,6 +27,7 @@ export default {
    box-sizing: border-box;
    color: #1F1D36;
 }
+
 body {
    margin: 0;
    padding: 0;
@@ -37,9 +38,7 @@ main {
    width: 100%;
    max-width: 1300px;
 }
-.category{
-   text-transform: uppercase;
-}
+
 a,
 button,
 ul,
@@ -56,6 +55,12 @@ select {
       outline: 2px solid #2C272E;
    }
 }
+
+button{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -66,6 +71,10 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+.category{
+   text-transform: uppercase;
+}
+
 
 @media screen and (min-width: 992px){
    main{
