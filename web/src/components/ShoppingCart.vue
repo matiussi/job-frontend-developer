@@ -1,13 +1,13 @@
 <template>
    <aside class="shopping-cart">
       <div class="shopping-cart-top">
-         <h1>SHOPPING CART</h1>
-         <button @click="$emit('callCloseShoppingCart')">
+         <button class="close-cart" @click="$emit('callCloseShoppingCart')">
             <unicon name="multiply"></unicon>
          </button>
       </div>
+      <h1>SHOPPING CART</h1>
       <div class="cart-container" v-if="this.$store.state.cart.length > 0">
-         <ul class="cart-items">
+         <transition-group tag="ul" class="cart-items" name="cart-items">
             <li
                class="item"
                v-for="item in this.$store.state.cart"
@@ -38,11 +38,13 @@
                      >
                         +
                      </button>
-                     <div class="price">{{ currency(item.product.price) }}</div>
+                     <div class="price">
+                        {{ currency(item.product.price) }}
+                     </div>
                   </div>
                </div>
             </li>
-         </ul>
+         </transition-group>
          <div class="shopping-cart-bottom">
             <div class="subtotal">
                <span>SUBTOTAL</span>
@@ -58,7 +60,7 @@
 </template>
 
 <script>
-import currency from '../utils/currency';
+import currency from "../utils/currency";
 
 export default {
    name: "ShoppingCart",
@@ -85,9 +87,9 @@ export default {
          };
          this.$store.dispatch("decrementQuantity", payload);
       },
-      currency(value){
+      currency(value) {
          return currency(value);
-      }
+      },
    },
 };
 </script>
@@ -105,15 +107,18 @@ export default {
 
    .shopping-cart-top {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
+      justify-content: flex-end;
    }
-
-   .cart-container{
+   .close-cart {
+      position: relative;
+      right: 0;
+   }
+   .cart-container {
       height: 60%;
    }
    .cart-items {
       overflow-y: scroll;
+      overflow-x: hidden;
       height: 80%;
       width: 100%;
       margin: 50px 0px;
@@ -206,16 +211,32 @@ export default {
       }
    }
 }
-
+h1,
+.cart-items,
+.shopping-cart-bottom,
+.empty-cart {
+   -webkit-animation: slide-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+         both,
+      fade-in 0.5s;
+   animation: slide-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both,
+      fade-in 0.5s;
+   animation-delay: 0.5s;
+}
 @media screen and (min-width: 992px) {
    .shopping-cart {
       width: 500px;
       right: 0;
       left: unset;
 
-      .cart-items{
+      .cart-items {
          height: 90%;
       }
    }
+}
+
+.cart-items-leave-active {
+   -webkit-animation: slide-out-right 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53)
+      both;
+   animation: slide-out-right 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
 }
 </style>
