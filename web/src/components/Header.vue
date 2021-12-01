@@ -35,8 +35,9 @@
             >
                <unicon name="search"></unicon>
             </button>
-            <button @click="showShoppingCart = true">
+            <button class="shopping-cart-button" @click="showShoppingCart = true">
                <unicon name="shopping-cart"></unicon>
+               <span class="quantity">{{productsQuantity}}</span>
             </button>
          </div>
          <form
@@ -99,6 +100,11 @@ export default {
    },
    beforeUnmount() {
       window.removeEventListener("resize", this.onResize);
+   },
+   computed:{
+      productsQuantity(){
+         return this.$store.getters.productsQuantity;
+      }
    },
    methods: {
       onResize() {
@@ -199,7 +205,28 @@ header {
       .button-wrapper {
          display: flex;
          align-items: center;
+
+         .shopping-cart-button{
+            position: relative;
+            padding-right: 15px;
+            
+            .quantity{
+               background-color: #1F1D36;
+               color: #fff;
+               height: 25px;
+               width: 25px;
+               border-radius: 50%;
+
+               display: flex;
+               align-items: center;
+               justify-content: center;
+               position: absolute;
+               top: 0;
+               right: 0;
+            }
+         }
       }
+
       .show {
          display: none;
       }
