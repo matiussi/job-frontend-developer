@@ -56,6 +56,15 @@ export default createStore({
 
          return total;
       },
+      productsQuantity(state){
+         let total = 0;
+         state.cart.map(cartItem => {
+            const { quantity } = cartItem;
+            total += quantity
+         });
+
+         return total;
+      }
    }
 
 })
