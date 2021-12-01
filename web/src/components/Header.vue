@@ -35,7 +35,9 @@
             >
                <unicon name="search"></unicon>
             </button>
-            <button><unicon name="shopping-cart"></unicon></button>
+            <button @click="showShoppingCart = true">
+               <unicon name="shopping-cart"></unicon>
+            </button>
          </div>
          <form
             v-on:submit.prevent="onSubmit"
@@ -55,23 +57,34 @@
    </header>
    <router-view />
    <div
-      v-if="showMenu || showSearchBar"
+      v-if="showMenu || showSearchBar || showShoppingCart"
       class="gray-bg"
       :style="showMenu ? 'z-index: 2' : ''"
       @click="
          showMenu = false;
          showSearchBar = false;
+         showShoppingCart = false;
       "
    ></div>
+   <ShoppingCart 
+      v-if="showShoppingCart"
+      @callCloseShoppingCart="closeShoppingCart" 
+   />
+   
 </template>
 <script>
+import ShoppingCart from '../components/ShoppingCart.vue';
 
 export default {
    name: "Header",
+   components:{
+      ShoppingCart
+   },
    data() {
       return {
          showMenu: false,
          showSearchBar: false,
+         showShoppingCart: false,
          inputFocus: null,
          isDesktop: false,
          windowWidth: window.innerWidth,
@@ -95,7 +108,36 @@ export default {
       setFocus: function () {
          this.$nextTick(() => this.$refs.inputFocus.focus());
       },
+      closeShoppingCart() {
+         this.showShoppingCart = false;
+      }
    },
+    watch: {
+    showShoppingCart: function() {
+      if(this.showShoppingCart){
+        document.documentElement.style.overflow = 'hidden'
+        return
+      }
+
+      document.documentElement.style.overflow = 'auto'
+    },
+     showMenu: function() {
+      if(this.showMenu){
+        document.documentElement.style.overflow = 'hidden'
+        return
+      }
+
+      document.documentElement.style.overflow = 'auto'
+    },
+     showSearchBar: function() {
+      if(this.showSearchBar){
+        document.documentElement.style.overflow = 'hidden'
+        return
+      }
+
+      document.documentElement.style.overflow = 'auto'
+    }
+  }
 };
 </script>
 
