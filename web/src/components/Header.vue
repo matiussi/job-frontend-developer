@@ -7,24 +7,32 @@
          <router-link class="logo" to="/" v-if="isDesktop">
             <img src="../assets/logo.svg" />
          </router-link>
-         <ul
-            v-if="showMenu || isDesktop"
-            :class="isDesktop ? 'categories-desktop' : 'categories-mobile'"
-         >
-            <div class="categories-top" v-if="!isDesktop">
-               <button class="close-menu" @click="showMenu = false">
-                  <unicon name="multiply"></unicon>
-               </button>
-            </div>
-            <li class="category" v-for="(category, index) in categories" :key="index" >
-               <router-link @click="showMenu = false" :to="`/category/${category}`">{{category}}</router-link>
-            </li>
-            
-         </ul>
+         <transition name="slide-right">
+            <ul
+               v-if="showMenu || isDesktop"
+               :class="isDesktop ? 'categories-desktop' : 'categories-mobile'"
+            >
+               <div class="categories-top" v-if="!isDesktop">
+                  <button class="close-menu" @click="showMenu = false">
+                     <unicon name="multiply"></unicon>
+                  </button>
+               </div>
+               <li
+                  class="category"
+                  v-for="(category, index) in categories"
+                  :key="index"
+               >
+                  <router-link
+                     @click="showMenu = false"
+                     :to="`/category/${category}`"
+                     >{{ category }}</router-link
+                  >
+               </li>
+            </ul>
+         </transition>
          <router-link class="logo" to="/" v-if="!isDesktop">
             <img src="../assets/logo.svg" />
          </router-link>
-
          <div class="button-wrapper">
             <button
                @click="
@@ -35,9 +43,12 @@
             >
                <unicon name="search"></unicon>
             </button>
-            <button class="shopping-cart-button" @click="showShoppingCart = true">
+            <button
+               class="shopping-cart-button"
+               @click="showShoppingCart = true"
+            >
                <unicon name="shopping-cart"></unicon>
-               <span class="quantity">{{productsQuantity}}</span>
+               <span class="quantity">{{ productsQuantity }}</span>
             </button>
          </div>
          <form
@@ -49,7 +60,11 @@
             <button @click="showSearchBar = true">
                <unicon name="search"></unicon>
             </button>
-            <input ref="inputFocus" type="text" placeholder="Search for products" />
+            <input
+               ref="inputFocus"
+               type="text"
+               placeholder="Search for products"
+            />
             <button class="close-searchbar" @click="showSearchBar = false">
                <unicon name="multiply"></unicon>
             </button>
@@ -67,19 +82,20 @@
          showShoppingCart = false;
       "
    ></div>
-   <ShoppingCart 
-      v-if="showShoppingCart"
-      @callCloseShoppingCart="closeShoppingCart" 
-   />
-   
+   <transition name="slide-left">
+      <ShoppingCart
+         v-if="showShoppingCart"
+         @callCloseShoppingCart="closeShoppingCart"
+      />
+   </transition>
 </template>
 <script>
-import ShoppingCart from '../components/ShoppingCart.vue';
+import ShoppingCart from "../components/ShoppingCart.vue";
 
 export default {
    name: "Header",
-   components:{
-      ShoppingCart
+   components: {
+      ShoppingCart,
    },
    data() {
       return {
@@ -89,11 +105,16 @@ export default {
          inputFocus: null,
          isDesktop: false,
          windowWidth: window.innerWidth,
-         categories: ['electronics', 'jewelery', 'men\'s clothing', 'women\'s clothing']
+         categories: [
+            "electronics",
+            "jewelery",
+            "men's clothing",
+            "women's clothing",
+         ],
       };
    },
-   created(){
-       this.$nextTick(() => {
+   created() {
+      this.$nextTick(() => {
          window.addEventListener("resize", this.onResize);
       });
       this.onResize();
@@ -101,10 +122,10 @@ export default {
    beforeUnmount() {
       window.removeEventListener("resize", this.onResize);
    },
-   computed:{
-      productsQuantity(){
+   computed: {
+      productsQuantity() {
          return this.$store.getters.productsQuantity;
-      }
+      },
    },
    methods: {
       onResize() {
@@ -116,34 +137,34 @@ export default {
       },
       closeShoppingCart() {
          this.showShoppingCart = false;
-      }
+      },
    },
-    watch: {
-    showShoppingCart: function() {
-      if(this.showShoppingCart){
-        document.documentElement.style.overflow = 'hidden'
-        return
-      }
+   watch: {
+      showShoppingCart: function () {
+         if (this.showShoppingCart) {
+            document.documentElement.style.overflow = "hidden";
+            return;
+         }
 
-      document.documentElement.style.overflow = 'auto'
-    },
-     showMenu: function() {
-      if(this.showMenu){
-        document.documentElement.style.overflow = 'hidden'
-        return
-      }
+         document.documentElement.style.overflow = "auto";
+      },
+      showMenu: function () {
+         if (this.showMenu) {
+            document.documentElement.style.overflow = "hidden";
+            return;
+         }
 
-      document.documentElement.style.overflow = 'auto'
-    },
-     showSearchBar: function() {
-      if(this.showSearchBar){
-        document.documentElement.style.overflow = 'hidden'
-        return
-      }
+         document.documentElement.style.overflow = "auto";
+      },
+      showSearchBar: function () {
+         if (this.showSearchBar) {
+            document.documentElement.style.overflow = "hidden";
+            return;
+         }
 
-      document.documentElement.style.overflow = 'auto'
-    }
-  }
+         document.documentElement.style.overflow = "auto";
+      },
+   },
 };
 </script>
 
@@ -184,8 +205,6 @@ header {
          display: flex;
          flex-direction: column;
          background: white;
-         border-right: 2px solid #c6c6c6;
-         
 
          .categories-top {
             display: flex;
@@ -195,6 +214,13 @@ header {
             font-size: 20px;
             border-bottom: 1px solid #e6e6e6;
             width: 100%;
+            -webkit-animation: slide-bottom 0.5s
+                  cubic-bezier(0.25, 0.46, 0.45, 0.94) both,
+               fade-in 0.5s;
+            animation: slide-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+                  both,
+               fade-in 0.5s;
+            animation-delay: 0.5s;
             a {
                display: block;
                padding: 30px 0px 30px 15px;
@@ -206,12 +232,12 @@ header {
          display: flex;
          align-items: center;
 
-         .shopping-cart-button{
+         .shopping-cart-button {
             position: relative;
             padding-right: 15px;
-            
-            .quantity{
-               background-color: #1F1D36;
+
+            .quantity {
+               background-color: #1f1d36;
                color: #fff;
                height: 25px;
                width: 25px;
@@ -271,6 +297,17 @@ header {
    .toggle-menu {
       display: none;
    }
+   a,
+   button {
+      &:hover,
+      &:focus {
+         font-weight: 500;
+         -webkit-animation: scale-up-center 0.4s
+            cubic-bezier(0.39, 0.575, 0.565, 1) both;
+         animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1)
+            both;
+      }
+   }
    .categories-desktop {
       font-size: 16px;
       width: 80%;
@@ -283,6 +320,7 @@ header {
          height: 80px;
          display: flex;
          align-items: center;
+
          a {
             padding: 20px 10px;
          }
@@ -292,5 +330,25 @@ header {
       border-bottom: 1px solid #c6c6c6;
       max-width: 1300px;
    }
+}
+/* Animations  */
+.slide-right-enter-active {
+   -webkit-animation: slide-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+   animation: slide-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+.slide-right-leave-active {
+   -webkit-animation: slide-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+      reverse;
+   animation: slide-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse;
+}
+
+.slide-left-enter-active {
+   -webkit-animation: slide-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+   animation: slide-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+.slide-left-leave-active {
+   -webkit-animation: slide-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+      reverse;
+   animation: slide-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse;
 }
 </style>
