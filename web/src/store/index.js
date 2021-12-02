@@ -64,6 +64,9 @@ export default createStore({
          });
 
          return total;
+      },
+      getShowShoppingCart(state){
+         return state.showShoppingCart;
       }
    }
 })
