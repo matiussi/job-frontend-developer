@@ -1,6 +1,8 @@
 <template>
    <div class="loading-container">
-      <unicon name="spinner"></unicon>
+      <span class="rotate">
+         <unicon name="spinner"></unicon>
+      </span>
       <p class="loading">Loading...</p>
    </div>
 </template>
@@ -22,7 +24,7 @@ export default {
    .loading{
       font-size: 20px;
    }
-   .unicon {
+   .rotate {
       -webkit-animation: rotate-center 1s ease-in-out infinite;
       animation: rotate-center 1s ease-in-out infinite;
    }
