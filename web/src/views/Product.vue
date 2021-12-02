@@ -15,6 +15,7 @@
                      class="operation"
                      @click="decreaseQuantity()"
                      :disabled="quantity <= 0 ? true : false"
+                     aria-label="Decrease product quantity"
                   >
                      -
                   </button>
@@ -25,8 +26,13 @@
                      :v-model="quantity"
                      min="0"
                      step="1"
+                     aria-label="Product quantity"
                   />
-                  <button class="operation" @click="increaseQuantity()">
+                  <button 
+                     class="operation" 
+                     @click="increaseQuantity()"
+                     aria-label="Increase product quantity"
+                  >
                      +
                   </button>
                </div>
