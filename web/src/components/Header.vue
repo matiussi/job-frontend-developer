@@ -1,7 +1,11 @@
 <template>
    <header :class="showSearchBar ? 'searchbar-open' : ''">
       <nav>
-         <button class="toggle-menu" @click="showMenu = true">
+         <button 
+            class="toggle-menu" 
+            @click="showMenu = true"
+            aria-label="Open menu"
+         >
             <unicon name="bars"></unicon>
          </button>
          <router-link class="logo" to="/" v-if="isDesktop">
@@ -13,7 +17,11 @@
                :class="isDesktop ? 'categories-desktop' : 'categories-mobile'"
             >
                <div class="categories-top" v-if="!isDesktop">
-                  <button class="close-menu" @click="showMenu = false">
+                  <button 
+                     class="close-menu" 
+                     @click="showMenu = false"
+                     aria-label="Close menu"
+                  >
                      <unicon name="multiply"></unicon>
                   </button>
                </div>
@@ -30,7 +38,7 @@
                </li>
             </ul>
          </transition>
-         <router-link class="logo" to="/" v-if="!isDesktop">
+         <router-link class="logo" to="/" v-if="!isDesktop" aria-label="Homepage">
             <img src="../assets/logo.svg" />
          </router-link>
          <div class="button-wrapper">
@@ -40,12 +48,14 @@
                   showMenu = false;
                   setFocus();
                "
+               aria-label="Searchbar"
             >
                <unicon name="search"></unicon>
             </button>
             <button
                class="shopping-cart-button"
                @click="this.$store.state.showShoppingCart = true"
+               aria-label="Shopping cart"
             >
                <unicon name="shopping-cart"></unicon>
                <span class="quantity">{{ productsQuantity }}</span>
