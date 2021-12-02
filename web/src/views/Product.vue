@@ -227,10 +227,12 @@ export default {
    .product-container {
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
 
       .image {
          width: 50%;
          height: 100%;
+         padding-right: 30px;
       }
       .info-container {
          width: 50%;
