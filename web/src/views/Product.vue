@@ -44,9 +44,8 @@
                   "
                   :disabled="buttonLoading ? true : false"
                >
-                  <span class="rotate">
+                  <span class="rotate" v-if="buttonLoading">
                      <unicon
-                        v-if="buttonLoading"
                         name="spinner"
                         fill="#ffffff"
                      ></unicon>
