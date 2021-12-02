@@ -127,7 +127,7 @@ export default {
       flex-direction: column;
 
       .item {
-         height: 140px;
+         height: 100px;
          width: 100%;
          display: flex;
          align-items: flex-start;
@@ -137,7 +137,7 @@ export default {
 
          .image {
             width: 80px;
-            height: 120px;
+            height: 100px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -147,7 +147,7 @@ export default {
             img {
                display: inline-block;
                max-width: 80px;
-               max-height: 120px;
+               max-height: 100px;
                align-self: center;
             }
          }
@@ -158,6 +158,10 @@ export default {
             justify-content: space-between;
             height: 100%;
             width: 100%;
+
+            .title{
+               flex-grow: 1;
+            }
 
             .cart-options {
                display: flex;
