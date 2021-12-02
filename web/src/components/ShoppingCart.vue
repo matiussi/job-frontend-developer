@@ -1,7 +1,11 @@
 <template>
    <aside class="shopping-cart">
       <div class="shopping-cart-top">
-         <button class="close-cart" @click="$emit('callCloseShoppingCart')">
+         <button 
+            class="close-cart" 
+            @click="$emit('callCloseShoppingCart')"
+            aria-label="Close shopping cart"
+         >
             <unicon name="multiply"></unicon>
          </button>
       </div>
@@ -14,7 +18,7 @@
                :key="item.product.id"
             >
                <div class="image">
-                  <img :src="item.product.image" :alt="item.product.id" />
+                  <img :src="item.product.image" :alt="item.product.title" />
                </div>
                <div class="item-info">
                   <div class="title">
@@ -24,6 +28,7 @@
                      <button
                         class="operation"
                         @click="decrementQuantity(item.product)"
+                        aria-label="Decrease product quantity"
                      >
                         -
                      </button>
@@ -31,16 +36,19 @@
                         class="quantity"
                         type="number"
                         :value="item.quantity"
+                        aria-label="Product quantity"
                      />
                      <button
                         class="operation"
                         @click="incrementQuantity(item.product)"
+                        aria-label="Increase product quantity"
                      >
                         +
                      </button>
                       <button
                         class="remove-from-cart"
                         @click="removeFromCart(item.product)"
+                        aria-label="Remove product from cart"
                      >
                         <unicon name="trash"/>
                      </button>
