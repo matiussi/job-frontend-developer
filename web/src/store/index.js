@@ -2,7 +2,8 @@ import { createStore } from 'vuex'
 
 export default createStore({
    state: {
-      cart: []
+      cart: [],
+      showShoppingCart: false,
    },
    mutations: {
       addProduct(state, payload) {
@@ -16,8 +17,7 @@ export default createStore({
       },
       removeFromCart(state, cartItem) {
          state.cart = state.cart.filter(item => item !== cartItem)
-
-      }
+      },
    },
    actions: {
       addToCart(context, payload) {
@@ -56,7 +56,7 @@ export default createStore({
 
          return total;
       },
-      productsQuantity(state){
+      productsQuantity(state) {
          let total = 0;
          state.cart.map(cartItem => {
             const { quantity } = cartItem;
@@ -66,5 +66,4 @@ export default createStore({
          return total;
       }
    }
-
 })
