@@ -38,6 +38,12 @@
                      >
                         +
                      </button>
+                      <button
+                        class="remove-from-cart"
+                        @click="removeFromCart(item.product)"
+                     >
+                        <unicon name="trash"/>
+                     </button>
                      <div class="price">
                         {{ currency(item.product.price) }}
                      </div>
@@ -86,6 +92,9 @@ export default {
             quantity: 1,
          };
          this.$store.dispatch("decrementQuantity", payload);
+      },
+      removeFromCart(product){
+         this.$store.dispatch("removeFromCart", product);
       },
       currency(value) {
          return currency(value);
@@ -175,6 +184,9 @@ export default {
                   width: 28px;
                   border: 1px solid #c6c6c6;
                   font-size: 32px;
+               }
+               .remove-from-cart{
+                  margin-left: 10px;
                }
                .quantity {
                   height: 30px;
