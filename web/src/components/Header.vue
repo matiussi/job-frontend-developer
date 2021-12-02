@@ -101,7 +101,6 @@ export default {
       return {
          showMenu: false,
          showSearchBar: false,
-         showShoppingCart: false,
          inputFocus: null,
          isDesktop: false,
          windowWidth: window.innerWidth,
@@ -126,6 +125,9 @@ export default {
       productsQuantity() {
          return this.$store.getters.productsQuantity;
       },
+      getShowShoppingCart: function(){
+         return this.$store.getters.getShowShoppingCart;
+      }
    },
    methods: {
       onResize() {
@@ -140,7 +142,7 @@ export default {
       },
    },
    watch: {
-      showShoppingCart: function () {
+      getShowShoppingCart: function () {
          if (this.$store.state.showShoppingCart) {
             document.documentElement.style.overflow = "hidden";
             return;
