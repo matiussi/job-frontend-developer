@@ -45,7 +45,7 @@
             </button>
             <button
                class="shopping-cart-button"
-               @click="showShoppingCart = true"
+               @click="this.$store.state.showShoppingCart = true"
             >
                <unicon name="shopping-cart"></unicon>
                <span class="quantity">{{ productsQuantity }}</span>
@@ -73,18 +73,18 @@
    </header>
    <router-view />
    <div
-      v-if="showMenu || showSearchBar || showShoppingCart"
+      v-if="showMenu || showSearchBar || this.$store.state.showShoppingCart"
       class="gray-bg"
       :style="showMenu ? 'z-index: 2' : ''"
       @click="
          showMenu = false;
          showSearchBar = false;
-         showShoppingCart = false;
+         this.$store.state.showShoppingCart = false;
       "
    ></div>
    <transition name="slide-left">
       <ShoppingCart
-         v-if="showShoppingCart"
+         v-if="this.$store.state.showShoppingCart"
          @callCloseShoppingCart="closeShoppingCart"
       />
    </transition>
@@ -136,12 +136,12 @@ export default {
          this.$nextTick(() => this.$refs.inputFocus.focus());
       },
       closeShoppingCart() {
-         this.showShoppingCart = false;
+         this.$store.state.showShoppingCart = false;
       },
    },
    watch: {
       showShoppingCart: function () {
-         if (this.showShoppingCart) {
+         if (this.$store.state.showShoppingCart) {
             document.documentElement.style.overflow = "hidden";
             return;
          }
@@ -297,17 +297,16 @@ header {
    .toggle-menu {
       display: none;
    }
-   a,
-   button {
-      &:hover,
-      &:focus {
-         font-weight: 500;
-         -webkit-animation: scale-up-center 0.4s
-            cubic-bezier(0.39, 0.575, 0.565, 1) both;
-         animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1)
-            both;
+    a, button{
+          &:hover,
+            &:focus {
+               font-weight: 500;
+               -webkit-animation: scale-up-center 0.4s
+                  cubic-bezier(0.39, 0.575, 0.565, 1) both;
+               animation: scale-up-center 0.4s
+                  cubic-bezier(0.39, 0.575, 0.565, 1) both;
+            }
       }
-   }
    .categories-desktop {
       font-size: 16px;
       width: 80%;
