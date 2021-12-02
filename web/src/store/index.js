@@ -43,7 +43,15 @@ export default createStore({
          } else {
             context.commit('removeFromCart', cartItem);
          }
+      },
+      removeFromCart(context, payload){
+         const cartItem = context.state.cart.find(item => {
+            return item.product.id === payload.id
+         });
+
+         context.commit('removeFromCart', cartItem);
       }
+
    },
    getters: {
       cartTotal(state) {
