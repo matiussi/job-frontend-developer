@@ -44,11 +44,13 @@
                   "
                   :disabled="buttonLoading ? true : false"
                >
-                  <unicon
-                     v-if="buttonLoading"
-                     name="spinner"
-                     fill="#ffffff"
-                  ></unicon>
+                  <span class="rotate">
+                     <unicon
+                        v-if="buttonLoading"
+                        name="spinner"
+                        fill="#ffffff"
+                     ></unicon>
+                  </span>
                   <p v-else>ADD TO CART</p>
                </button>
                <div class="message-box">
@@ -209,7 +211,7 @@ export default {
       width: 100%;
       margin: 20px 0px;
 
-      .unicon {
+      .rotate {
          -webkit-animation: rotate-center 1s ease-in-out infinite;
          animation: rotate-center 1s ease-in-out infinite;
       }
