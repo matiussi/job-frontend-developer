@@ -115,6 +115,7 @@ export default {
          setTimeout(() => {
             this.buttonLoading = false;
             this.success = true;
+            this.$store.state.showShoppingCart = true
          }, 1000);
          
       },
@@ -130,6 +131,7 @@ export default {
       width: 100%;
       height: 300px;
       display: flex;
+      
       flex-direction: column;
       align-items: center;
       justify-content: center;
