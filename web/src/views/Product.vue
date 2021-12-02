@@ -45,7 +45,9 @@
                   ></unicon>
                   <p v-else>ADD TO CART</p>
                </button>
-               <p class="success-message" v-if="success">The product has been added to cart.</p>
+               <div class="message-box">
+                  <p class="success-message" v-if="success">The product has been added to cart.</p>
+               </div>
             </div>
          </div>
          <div class="description-container">
@@ -163,10 +165,14 @@ export default {
       .price {
          font-size: 24px;
       }
+      .message-box{
+         height: 40px;
+      }
       .success-message{
          -webkit-animation: fade-in 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
          animation: fade-in 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
          font-weight: 500;
+         margin: 0;
       }
    }
    .cart-options {
